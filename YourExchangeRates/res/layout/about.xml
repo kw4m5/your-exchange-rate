@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+android:id="@+id/widget28"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent"
+android:orientation="vertical"
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:background="@drawable/about_bg">
+<TableLayout
+android:id="@+id/tlEmptyTable"
+android:layout_width="320dp"
+android:orientation="vertical" android:layout_height="362dp">
+</TableLayout>
+<TableRow
+android:id="@+id/trAboutImageButtons"
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:orientation="horizontal"
+>
+<ImageButton
+android:id="@+id/ibAboutListRates"
+android:src="@drawable/global_currency"
+android:layout_width="wrap_content"
+android:background="@android:color/transparent"
+android:onClick="onClickIBListRateHandler" 
+android:clickable="true" 
+android:contentDescription="List all exchange rates" android:padding="@dimen/BottomIconPadding">
+</ImageButton>
+<ImageButton
+android:id="@+id/ibAboutCurrencyConverter"
+android:layout_width="wrap_content"
+android:background="@android:color/transparent"
+android:src="@drawable/calculator" 
+android:onClick="onClickConverterHandler" android:padding="@dimen/BottomIconPadding">
+</ImageButton>
+<!--<ImageButton-->
+<!--android:id="@+id/ibSMS"-->
+<!--android:layout_width="wrap_content"-->
+<!--android:background="@android:color/transparent"-->
+<!--android:padding="@dimen/BottomIconPadding" android:onClick="onClickSMSHandler" android:src="@drawable/sms">-->
+<!--</ImageButton>-->
+<ImageButton
+android:id="@+id/ibSMS"
+android:layout_width="wrap_content"
+android:background="@android:color/transparent"
+android:padding="@dimen/BottomIconPadding" android:src="@drawable/about">
+</ImageButton>
+</TableRow>
+</LinearLayout>

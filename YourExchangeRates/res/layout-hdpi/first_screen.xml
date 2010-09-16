@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout 
+android:id="@+id/RelativeLayout01" 
+android:layout_width="fill_parent" 
+android:layout_height="fill_parent" 
+xmlns:android="http://schemas.android.com/apk/res/android" android:background="@drawable/money_bg">
+
+<TextView 
+android:layout_width="fill_parent" 
+android:layout_height="wrap_content" 
+android:text="@string/ChooseYourMainCurrency" 
+android:id="@+id/tvChooseYourMainCurrency"
+android:textColor="@color/Gold" android:layout_marginLeft="5dp">
+</TextView>
+
+<ListView
+android:layout_width="fill_parent" 
+android:layout_height="375dp" 
+android:id="@+id/lvChooseMainCurrency" 
+android:layout_below="@+id/tvChooseYourMainCurrency" 
+></ListView>
+<TextView 
+android:layout_width="fill_parent" 
+android:layout_height="wrap_content" 
+android:id="@+id/tvHintChooseMainCurrency"
+android:layout_below="@+id/lvChooseMainCurrency" 
+android:text="@string/HintChangeMainCurrency" android:textColor="@android:color/black" android:layout_marginLeft="5dp">
+</TextView>
+</RelativeLayout>

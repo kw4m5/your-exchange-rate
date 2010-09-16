@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+android:layout_width="fill_parent" 
+android:layout_height="fill_parent" 
+xmlns:android="http://schemas.android.com/apk/res/android" 
+android:background="@drawable/money_bg">
+<TextView 
+android:layout_width="fill_parent" 
+android:layout_height="wrap_content" 
+android:text="@string/ChooseCurrenciesToSend"
+android:id="@+id/tvPreviewTitle"
+android:textColor="@color/Gold" android:layout_marginLeft="5dp">
+</TextView>
+<TableRow 
+android:layout_height="wrap_content" 
+android:layout_width="fill_parent"
+android:layout_below="@+id/tvPreviewTitle" 
+android:id="@+id/trPreview01"
+>
+<TextView 
+android:layout_width="280dp" 
+android:layout_height="wrap_content" 
+android:text="Amount - MainCurrency" 
+android:id="@+id/tvPreview01"
+android:textColor="@android:color/white" android:layout_marginLeft="5dp">
+</TextView>
+<CheckBox
+android:id="@+id/cbPreview01"
+android:checked="true"
+/>
+</TableRow>
+<TableRow 
+android:layout_height="wrap_content" 
+android:layout_width="fill_parent"
+android:layout_below="@+id/trPreview01" 
+android:id="@+id/trPreview02"
+>
+<TextView 
+android:layout_width="280dp" 
+android:layout_height="wrap_content" 
+android:text="Amount - MainCurrency" 
+android:id="@+id/tvPreview02"
+android:textColor="@android:color/white" android:layout_marginLeft="5dp">
+</TextView>
+<CheckBox
+android:id="@+id/cbPreview02"
+android:checked="true"
+/>
+</TableRow>
+<TableRow 
+android:layout_height="wrap_content" 
+android:layout_width="fill_parent"
+android:layout_below="@+id/trPreview02" 
+android:id="@+id/trPreview03"
+>
+<TextView 
+android:layout_width="280dp" 
+android:layout_height="wrap_content" 
+android:text="Amount - MainCurrency" 
+android:id="@+id/tvPreview03"
+android:textColor="@android:color/white" android:layout_marginLeft="5dp">
+</TextView>
+<CheckBox
+android:id="@+id/cbPreview03"
+android:checked="true"
+/>
+</TableRow>
+<TableRow 
+android:layout_height="wrap_content" 
+android:layout_width="fill_parent"
+android:layout_below="@+id/trPreview03" 
+android:id="@+id/trPreview04"
+>
+<TextView 
+android:layout_width="280dp" 
+android:layout_height="wrap_content" 
+android:text="Amount - MainCurrency" 
+android:id="@+id/tvPreview04"
+android:textColor="@android:color/white" android:layout_marginLeft="5dp">
+</TextView>
+<CheckBox
+android:id="@+id/cbPreview04"
+android:checked="true"
+/>
+</TableRow>
+<TableRow 
+android:layout_height="wrap_content" 
+android:layout_width="fill_parent"
+android:layout_below="@+id/trPreview04" 
+android:id="@+id/trPreview05"
+>
+<TextView 
+android:layout_width="280dp" 
+android:layout_height="wrap_content" 
+android:text="Amount - MainCurrency" 
+android:id="@+id/tvPreview05"
+android:textColor="@android:color/white" 
+android:layout_marginLeft="5dp">
+</TextView>
+<CheckBox
+android:id="@+id/cbPreview05"
+android:checked="true"
+/>
+</TableRow>
+<Button
+android:layout_below="@+id/trPreview05"
+android:onClick="onSendSMSClickHandler"
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:text="@string/ShareSMS"
+>
+</Button>
+</RelativeLayout>

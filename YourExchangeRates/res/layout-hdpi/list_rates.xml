@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout 
+android:id="@+id/RelativeLayout01" 
+android:layout_width="fill_parent" 
+android:layout_height="fill_parent" 
+xmlns:android="http://schemas.android.com/apk/res/android" android:background="@drawable/money_bg">
+
+<TableRow 
+android:layout_height="wrap_content" 
+android:id="@+id/trLRFirstLine" 
+android:layout_width="fill_parent" android:padding="5dp">
+<TextView 
+android:layout_width="wrap_content" 
+android:layout_height="wrap_content" 
+android:text="@string/ExchangeRateBase" 
+android:id="@+id/tvListRateDate" 
+android:textColor="@color/Gold">
+</TextView>
+<TextView 
+android:layout_width="wrap_content" 
+android:layout_height="wrap_content" 
+android:id="@+id/tvLRX_Rates" 
+android:onClick="onClickECBHandler" android:clickable="true" android:textColor="@color/DirtBlue" android:text=" ECB Euro">
+</TextView>
+<TextView 
+android:layout_width="wrap_content" 
+android:layout_height="wrap_content" 
+android:id="@+id/tvLRInputDate" 
+android:onClick="onClickXRateHandler" android:textColor="@color/Gold">
+</TextView>
+</TableRow>
+
+<ListView 
+android:id="@+id/lvMainList" 
+android:layout_below="@+id/trLRFirstLine" 
+android:layout_width="fill_parent"
+android:footerDividersEnabled="false" android:layout_height="374dp">
+</ListView>
+
+<TableRow 
+android:layout_height="75dp" 
+android:id="@+id/tbListRateMain" 
+android:layout_below="@+id/lvMainList" 
+android:layout_width="fill_parent">
+<ImageButton
+android:id="@+id/ibListRateListRates"
+android:src="@drawable/global_currency"
+android:layout_width="wrap_content"
+android:background="@android:color/transparent"
+android:clickable="true" 
+android:padding="@dimen/BottomIconPadding">
+</ImageButton>
+<ImageButton
+android:id="@+id/ibListRateCurrencyConverter"
+android:layout_width="wrap_content"
+android:background="@android:color/transparent"
+android:onClick="onClickConverterHandler"
+android:src="@drawable/calculator" android:padding="@dimen/BottomIconPadding">
+</ImageButton>
+<!--<ImageButton-->
+<!--android:id="@+id/ibListRateSMS"-->
+<!--android:layout_width="wrap_content"-->
+<!--android:background="@android:color/transparent"-->
+<!--android:onClick="onClickSMSHandler"-->
+<!--android:padding="@dimen/BottomIconPadding" android:src="@drawable/sms">-->
+<!--</ImageButton>-->
+<ImageButton
+android:id="@+id/ibListRateSMS"
+android:layout_width="wrap_content"
+android:background="@android:color/transparent"
+android:padding="@dimen/BottomIconPadding" android:src="@drawable/about" android:onClick="onClickAboutHandler">
+</ImageButton>
+</TableRow>
+
+</RelativeLayout>
