@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<item
+		android:id="@+id/menu_set_precision"
+		android:title="@string/MenuTitle_SetDecimalPrecision"/>
+
+	<item
+		android:id="@+id/menu_set_main_currency"
+		android:title="@string/MenuTitle_SetMainCurrency"/>
+<!--		-->
+<!--	<item -->
+<!--		android:id="@+id/menu_about_us" -->
+<!--		android:title="@string/MenuAboutUs" />-->
+	<item 
+		android:id="@+id/menu_exit"
+		android:title="Exit"/>	
+</menu>

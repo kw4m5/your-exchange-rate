@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<string name="app_name">Your exchange rates !</string>
+	<color name="Gold">#ffd700</color>
+	<dimen name="BottomIconPadding">29dp</dimen>
+	<string name="ExchangeRateBase">Exchange rates base on</string>
+	<dimen name="RatesFontSize">11sp</dimen>
+	<string name="LRTo">Per</string>
+	<string name="LRIn">In</string>
+	<dimen name="LRTextVerticalPadding">0dp</dimen>
+	<color name="DirtBlue">#87cefa</color>
+	<string name="NoInternetConnection">Rates are outdated. Please connect to Internet to
+		update !</string>
+	<string name="ChoosenAsStandardCurrency">EUR</string>
+	<string name="PREF_LastOnlineDate">PREF_LastOnlineDate</string>
+	<string name="StorageFileName">rates.txt</string>
+	<string name="PREF_DecimalPrecesion">PREF_DecimalPrecesion</string>
+	<string name="DefaultPrecision">3</string>
+	<string name="BeginRegcoStringOfDate">using values from</string>
+	<string name="EndRegcoStringOfDate">&lt;br&gt;</string>
+	<string name="BeginRecogTableRates">&lt;td width=25%
+		align=\&quot;right\&quot;&gt;&lt;font face=\&quot;Verdana\&quot;
+		size=-1&gt;&lt;b&gt;&amp;nbsp;in
+		USD&amp;nbsp;&lt;/b&gt;&lt;/font&gt;&lt;/td&gt;</string>
+	<string name="RecogCurrencyExchange">class=\&quot;menu\&quot;&gt;</string>
+	<string name="HTMLSpace">&amp;nbsp;&amp;nbsp;</string>
+	<string name="DataURL">http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml
+	</string>
+	<dimen name="CountriesFontSize">13sp</dimen>
+
+	<string name="PREF_FirstTimeRunning">PREF_FirstTimeRunning</string>
+	<string name="ChooseYourMainCurrency">Please choose your main currency:</string>
+	<string name="PREF_MainCurrency">PREF_MainCurrency</string>
+	<string name="HintChangeMainCurrency">You can change the main currency later in:\nMenu
+		&gt; Main Currency</string>
+	<string name="FirstScreenDelayTime">5</string>
+	<string name="ListRate_ContextMenuTitle">Exchange rate </string>
+	<string name="ShareSMS">Share by SMS</string>
+	<string name="SMS_Title">Exchange rate base on Euro Central Bank\'s rates, date</string>
+	<string name="PREF_NumDaysToUpdate">PREF_NumDaysToUpdate</string>
+	<string name="Default_NumDaysToUpdate">2</string>
+	<color name="Blue">#0000ff</color>
+	<string name="MenuAboutUs">About</string>
+	<string name="MenuTitle_SetDecimalPrecision">Precision</string>
+	<string name="MenuTitle_SetMainCurrency">Main currency</string>
+	<string name="RecogECBCube">Cube</string>
+	<string name="WebDataURL">http://www.ecb.europa.eu/stats/exchange/eurofxref/html/index.en.html
+	</string>
+
+<string-array name="DecimalPrecisions">
+<item>0</item>
+<item>1</item>
+<item>2</item>
+<item>3</item>
+<item>4</item>
+<item>5</item>
+<item>6</item>
+</string-array>
+<string name="ChooseDecimalPrecision">Please choose the decimal precision:</string>
+<string name="ChooseMainCurrency">Choose your main currency:</string>
+<string name="ClearButtonText">Clear</string>
+<dimen name="ClearButton_SidePadding">10dp</dimen>
+
+<string name="DefaultMainCurrency">EUR</string>
+<string name="Calculate_SMSTitle">Base on European Central Bank rates, date </string>
+<string name="ChooseCurrenciesToSend">Choose currencies to send: </string>
+</resources>
