@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+	<item 
+		android:id="@+id/menu_add_remove_currencies"
+		android:title="@string/MenuTitle_AddRemoveCurrencies"/>	
 	<item
 		android:id="@+id/menu_set_precision"
 		android:title="@string/MenuTitle_SetDecimalPrecision"/>
@@ -14,5 +17,5 @@
 <!--		android:title="@string/MenuAboutUs" />-->
 	<item 
 		android:id="@+id/menu_exit"
-		android:title="Exit"/>	
+		android:title="@string/MenuTitle_Exit"/>	
 </menu>

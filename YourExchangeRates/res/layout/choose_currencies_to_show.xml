@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="fill_parent"
+	android:layout_height="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android"
+	android:background="@drawable/money_bg">
+
+	<TextView android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:text="@string/ChooseCurrencies_Title"
+		android:id="@+id/tvChooseCurrencies_Title" android:textColor="@color/Gold"
+		android:layout_marginLeft="5dp">
+	</TextView>
+
+	<ListView android:id="@id/android:list" android:layout_width="fill_parent"
+		android:layout_below="@+id/tvChooseCurrencies_Title"
+		android:layout_height="360dp" android:drawSelectorOnTop="false">
+	</ListView>
+
+	<Button android:layout_below="@id/android:list"
+		android:onClick="onSaveButtonClickHandler" android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:text="@string/ChooseCurrencies_SaveTitle">
+	</Button>
+	
+</RelativeLayout>

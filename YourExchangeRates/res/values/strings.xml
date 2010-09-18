@@ -65,4 +65,13 @@
 <string name="DefaultMainCurrency">EUR</string>
 <string name="Calculate_SMSTitle">Base on European Central Bank rates, date </string>
 <string name="ChooseCurrenciesToSend">Choose currencies to send: </string>
+<string name="PREF_CurrenciesToShow">PREF_CurrenciesToShow</string>
+<string name="MenuTitle_AddRemoveCurrencies">Add/Remove Currencies</string>
+<string name="MenuTitle_Exit">Exit</string>
+<string name="ChooseCurrencies_Title">Which currencies to show ?</string>
+<string name="ChooseCurrencies_SaveTitle">Save</string>
+<string name="ContextMenu_RemoveCurrency">Remove this currency</string>
+<string name="ContextMenu_AddRemoveCurrencies">Add/Remove currencies</string>
+<string name="ContextMenu_SetCurrencyAsMain">Set this currency as main</string>
+<string name="SMS_BottomLine">Sent from Android App: \&quot;Your Exchange Rates\&quot;</string>
 </resources>

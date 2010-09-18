@@ -41,8 +41,9 @@ public class MyUtility {
 	public static HashMap<String, String> mapAbb2FullCurrencyName;
 	public static HashMap<String, String> mapFull2AbbCurrencyName;
 	public static HashMap<String, String> mapNameMonth2NumMonth;
+	public static HashMap<String, Integer> mapAbbName2PositionInCurrenciesList;
 	private static String[] monthNames = {"January","February","March","April","May","June","July","August","September","October","November","December"};
-	
+
 	public static String[] tempCurrenciesFullNameList = {
 		"United States - Dollars","Euro - Euro","Japan - Yen","Bulgaria - Leva","Czech Republic - Koruny",
 		"Denmark - Kroner","Estonia - Krooni","Great Britain - Pounds","Hungary - Forint",
@@ -72,15 +73,20 @@ public class MyUtility {
 			mapAbb2FullCurrencyName.put(tempCurrenciesList[i], tempCurrenciesFullNameList[i].trim());			
 			mapFull2AbbCurrencyName.put(tempCurrenciesFullNameList[i].trim(),tempCurrenciesList[i]);
 		}
-		
+
 		mapNameMonth2NumMonth = new HashMap<String, String>();
 		for(int i = 0; i < 12 ; i++) {
 			String digit = Integer.toString(i+1);
 			if ( digit.length() == 1 ) digit = "0"+digit;
 			mapNameMonth2NumMonth.put(monthNames[i].toUpperCase(),digit);
 		}
+		
+		mapAbbName2PositionInCurrenciesList = new HashMap<String, Integer>();
+		for(int i = 0; i < MyUtility.currenciesList.length ; i++) {
+			mapAbbName2PositionInCurrenciesList.put(currenciesList[i], new Integer(i));
+		}
 	}
-	
+
 	public static void broadcastSMSIntent(Context context, String content) {
 		Intent sendIntent = new Intent(Intent.ACTION_VIEW);
 		sendIntent.putExtra("sms_body", content); 
@@ -100,12 +106,12 @@ public class MyUtility {
 		} else	return false;
 	}
 
-	
+
 	public static Date convertStringToDate(String dateStr) {
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		Date date;
 		try {
-			 date = dateFormat.parse(dateStr);
+			date = dateFormat.parse(dateStr);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return null;
@@ -116,7 +122,7 @@ public class MyUtility {
 	public static int countDaysBetween(String before, String after) {
 		Date bDate = convertStringToDate(before);
 		Date aDate = convertStringToDate(after);
-		
+
 		long diff = aDate.getTime() - bDate.getTime();
 		long diffDays = diff / (24 * 60 * 60 * 1000);
 		return (int)diffDays;
@@ -128,7 +134,7 @@ public class MyUtility {
 		String strRateTo = Double.toString(rate);
 		String strRateIn = Double.toString(1.0/rate);
 		int precision = MyPreference.getDecimalPrecision(context);
-		
+
 		content = "1 "+currency+" = "+ formatRate(strRateTo,precision) +" "+mainCurrency+"\n";
 		content += "1 "+mainCurrency+" = "+ formatRate(strRateIn,precision) +" "+currency+"\n";
 		return content;
@@ -140,7 +146,7 @@ public class MyUtility {
 		String content = 
 			context.getString(R.string.SMS_Title)+ " " + date + "\n" +
 			createSMSBodyForRate(rate,currency,context);
-		
+		content += "\n"+context.getString(R.string.SMS_BottomLine);
 		return content;
 	}
 
@@ -155,12 +161,12 @@ public class MyUtility {
 			return false;
 		return true;
 	}
-	
+
 	public static void forceActivityRestart(Activity act) {
 		act.startActivity(act.getIntent()); 
 		act.finish();	
 	}
-	
+
 	public static String formatIntCurrency(String amount) {
 		amount = getRidOfComma(amount);
 		int cnt = 0;
@@ -175,7 +181,7 @@ public class MyUtility {
 		}
 		return x;
 	}
-	
+
 	public static String formatRate(String stringNum, int prec) {
 		double rate = Double.parseDouble(stringNum);
 		int pow10 = (int)Math.pow(10, prec);
@@ -191,13 +197,7 @@ public class MyUtility {
 		return numStr;
 	}
 
-	/**
-	 * Return all currencies in abbreviation form (e.g: USD,EUR...)
-	 * @return
-	 */
-	public static String[] getCurrencies() {
-		return currenciesList;
-	}
+
 
 	/**
 	 * Return all currencies in abbreviation form (e.g: USD,EUR....) except specialCurrency
@@ -215,12 +215,12 @@ public class MyUtility {
 	}
 
 	public static String getDateToday() {
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        String today = dateFormat.format(calendar.getTime());
-        return today;
+		Calendar calendar = Calendar.getInstance();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		String today = dateFormat.format(calendar.getTime());
+		return today;
 	}
-	
+
 	static public String getRidOfComma(String numberStr) {	
 		return numberStr.replaceAll(",", "");
 	}
@@ -264,7 +264,7 @@ public class MyUtility {
 	private static String formatDate(String dateStr, int FORMAT) {
 		String[] words = dateStr.split("/");
 		String day,month,year;
-		
+
 		if ( words[0].length() == 2) {
 			// format: dd/MM/yyyy
 			day = words[0]; year = words[2];
@@ -273,7 +273,7 @@ public class MyUtility {
 			day = words[2]; year = words[0];
 		}
 		month = words[1];
-		
+
 		if (FORMAT == DATE_FORMAT_LONGER_FIRST) {
 			return year+"/"+month+"/"+day;
 		} else 
@@ -285,6 +285,7 @@ public class MyUtility {
 		String[] temp = inputLine.split("[ \t\n\f\r, ]");
 		ArrayList<String> words = new ArrayList<String>();
 		for(String word : temp ) {
+			word = word.trim();
 			if ( word.length() == 0) continue;
 			words.add(word);
 		}
@@ -292,7 +293,21 @@ public class MyUtility {
 		words.toArray(ret);
 		return ret;
 	}
-	
+
+	public static String[] splitToWords(String line,String seperators) {
+		String[] temp = line.split(seperators);
+		ArrayList<String> words = new ArrayList<String>();
+		for(String word : temp ) {
+			word = word.trim();
+			if ( word.length() == 0) continue;
+			words.add(word);
+		}
+		String[] ret = new String[words.size()];
+		words.toArray(ret);
+		return ret;
+	}		
+
+
 	public static void switchToHomeScreen(Activity activity) {
 		Intent setIntent = new Intent(Intent.ACTION_MAIN);
 		setIntent.addCategory(Intent.CATEGORY_HOME);
@@ -300,8 +315,8 @@ public class MyUtility {
 		activity.startActivity(setIntent); 
 	}
 
-	
-	
+
+
 	/**
 	 * Change date format from yyyy-MM-dd to dd/MM/yyyy
 	 * @param dateStr
@@ -377,15 +392,6 @@ public class MyUtility {
 		return aftPos;
 	}
 
-	public static String[] getCurrenciesAndFullNames() {
-		String[] ret = currenciesList;
-		//TODO: DEBUB here to see if currenciesList is changed ? !!!!
-		for(int i =0; i < ret.length ; i++) {
-			ret[i] += " : "+mapAbb2FullCurrencyName.get(ret[i]);
-		}
-		return ret;
-	}
-
 	/**
 	 * Return the first word in a string, words are seperated by space(s)
 	 * @param str
@@ -399,4 +405,58 @@ public class MyUtility {
 		firstWord = words[i];
 		return firstWord;
 	}
+	/**
+	 * Return the currencies mask:  </br>
+	 * - mask[position] = 1 : MyUtility.currenciesList[position] occurs in currencies </br>
+	 * - mask[position] = 0 : otherwise </br>
+	 * @param currencies
+	 * @return
+	 */
+
+	public static boolean[] creatCurrenciesMask(String[] currencies) {
+		boolean[] mask = new boolean[MyUtility.currenciesList.length];
+		for(int i = 0 ; i < mask.length ; i++) mask[i] = false;
+		for(String currency : currencies) {
+			mask[MyUtility.mapAbbName2PositionInCurrenciesList.get(currency)] = true;
+		}
+		
+		return mask;
+	}
+
+	public static String[] getCurrenciesListPlus(String mainCurrency,
+			String[] currencies) {
+		ArrayList<String> newCurrencies = MyUtility.initFrom(currencies);
+		newCurrencies.add(mainCurrency);
+		String[] temp = MyUtility.convertArrayList2Array(newCurrencies);
+		return getCurrenciesListSortByDefaultSetting(temp);
+	}
+
+	public static String[] convertArrayList2Array(ArrayList<String> alist) {
+		String[] array = new String[alist.size() ];
+		alist.toArray(array);
+		return array;
+	}
+
+	private static String[] getCurrenciesListSortByDefaultSetting(
+			String[] currencies) {
+		boolean[] mask = creatCurrenciesMask(currencies);
+		ArrayList<String> sortedCurrencies = new ArrayList<String>();
+		for(int i = 0 ; i < MyUtility.currenciesList.length ; i++) 
+		if ( mask[i] == true )
+		{
+			sortedCurrencies.add(MyUtility.currenciesList[i]);
+		}
+		return convertArrayList2Array(sortedCurrencies);
+	}
+
+	private static ArrayList<String> initFrom(String[] elements) {
+		ArrayList<String> array = new ArrayList<String>();
+		for(String element : elements ) {
+			array.add(element);
+		}
+		return array;
+	}
+	
+	
+	
 }

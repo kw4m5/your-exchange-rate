@@ -89,6 +89,7 @@ public class PreviewSMS extends Activity {
 				passedFirstChecked = true;
 			}
 		}
+		content += "\n"+this.getString(R.string.SMS_BottomLine);
 		MyUtility.broadcastSMSIntent(this, content);
 	}
 

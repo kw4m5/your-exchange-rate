@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<string name="app_name">Your exchange rates !</string>
+	<string name="ExchangeRateBase">Exchange rates base on</string>
+	<string name="LRTo">Per</string>
+	<string name="LRIn">In</string>
+	<string name="NoInternetConnection">Rates are outdated. Please connect to Internet to
+		update !</string>
+	<string name="BeginRegcoStringOfDate">using values from</string>
+	<string name="ChooseYourMainCurrency">Please choose your main currency:</string>
+	<string name="HintChangeMainCurrency">You can change the main currency later in:\nMenu
+		&gt; Main Currency</string>
+	<string name="ListRate_ContextMenuTitle">Exchange rate </string>
+	<string name="ShareSMS">Share by SMS</string>
+	<string name="SMS_Title">Exchange rate base on Euro Central Bank\'s rates, date</string>
+	<string name="MenuAboutUs">About</string>
+	<string name="MenuTitle_SetDecimalPrecision">Precision</string>
+	<string name="MenuTitle_SetMainCurrency">Main currency</string>
+
+<string name="ChooseDecimalPrecision">Please choose the decimal precision:</string>
+<string name="ChooseMainCurrency">Choose your main currency:</string>
+<string name="ClearButtonText">Clear</string>
+
+<string name="Calculate_SMSTitle">Base on European Central Bank rates, date </string>
+<string name="ChooseCurrenciesToSend">Choose currencies to send: </string>
+<string name="MenuTitle_AddRemoveCurrencies">Add/Remove Currencies</string>
+<string name="MenuTitle_Exit">Exit</string>
+<string name="ChooseCurrencies_Title">Which currencies to show ?</string>
+<string name="ChooseCurrencies_SaveTitle">Save</string>
+<string name="ContextMenu_RemoveCurrency">Remove this currency</string>
+<string name="ContextMenu_AddRemoveCurrencies">Add/Remove currencies</string>
+<string name="ContextMenu_SetCurrencyAsMain">Set this currency as main</string>
+<string name="SMS_BottomLine">Sent from Android App: \&quot;Your Exchange Rates\&quot;</string>
+</resources>

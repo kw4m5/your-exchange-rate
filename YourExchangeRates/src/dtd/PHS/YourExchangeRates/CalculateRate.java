@@ -105,7 +105,7 @@ public class CalculateRate extends Activity {
 		ArrayAdapter<String > adapter = new ArrayAdapter<String>(
 				this, 
 				android.R.layout.simple_spinner_item, 
-				MyUtility.getCurrencies());
+				MyPreference.getCurrenciesToShow(this));
 		this.spinner01.setAdapter(adapter);
 		this.spinner02.setAdapter(adapter);
 		

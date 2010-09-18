@@ -21,6 +21,9 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 public class ListRates extends Activity {
 
 	private static final int CONTEXTMENU_SENDSMS = 0;
+	private static final int CONTEXTMENU_REMOVE_CURRENCY = 1;
+	private static final int CONTEXTMENU_ADDREMOVE_CURRENCIES = 2;
+	private static final int CONTEXTMENU_SET_CURRENCY_AS_MAIN = 3;
 	ListView mainList;
 	DataProvider dataProvider;
 	MyMainMenu mainMenu;
@@ -42,7 +45,7 @@ public class ListRates extends Activity {
 			RowAdapter adapter = 
 				new RowAdapter( this, 
 						R.layout.row_item,
-						MyUtility.getCurrenciesExcept(mainCurrency));
+						MyPreference.getCurrenciesExcept(this,mainCurrency));
 
 			this.mainList.setAdapter(adapter);
 			this.mainList.setOnCreateContextMenuListener(new MyOnCreateContextMenuListener());
@@ -63,8 +66,8 @@ public class ListRates extends Activity {
 		Intent intent = new Intent(Intent.ACTION_VIEW , Uri.parse(this.getString(R.string.WebDataURL)) );
 		startActivity(intent);
 	}
-	
-	
+
+
 	//On click bottom icon handlers
 	public void onClickConverterHandler(View view) {
 		Intent intent = new Intent(this,CalculateRate.class);
@@ -73,38 +76,38 @@ public class ListRates extends Activity {
 	public void onClickSMSHandler(View view) {
 		Intent intent = new Intent(this,SendSMS.class);
 		this.startActivity(intent);
-		
+
 	}
 	public void onClickAboutHandler(View view) {
 		Intent intent = new Intent(this,About.class);
 		this.startActivity(intent);
 
 	}
-	
 
-	
+
+
 	public boolean onCreateOptionsMenu(Menu menu) {
 		mainMenu.createOptionsMenu(menu);
-	    return true;
+		return true;
 	}
 	public boolean onOptionsItemSelected(MenuItem item) {
 		super.onOptionsItemSelected(item);
 		return mainMenu.onItemSelected(item);	
 	}
-	
+
 	/**
 	 * At the moment, this method only force activity to restart (after some preference changed in menu)
 	 */
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-    	switch (requestCode) {
-    	case MyUtility.REQ_RESTART_DST_ACTIVITY:
-    		MyUtility.forceActivityRestart(this);
-    		break;
-    	default: break;
-    	}
-    }
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		switch (requestCode) {
+		case MyUtility.REQ_RESTART_DST_ACTIVITY:
+			MyUtility.forceActivityRestart(this);
+			break;
+		default: break;
+		}
+	}
 
 	private class RowAdapter extends ArrayAdapter<String> {
 
@@ -137,9 +140,11 @@ public class ListRates extends Activity {
 	@Override
 	public boolean onContextItemSelected(MenuItem aItem) {
 		AdapterContextMenuInfo menuInfo = (AdapterContextMenuInfo) aItem.getMenuInfo();
-		switch (aItem.getItemId()) {
+		String currency = (String)(this.mainList.getAdapter().getItem(menuInfo.position));
+		Intent intent;
+		switch (aItem.getItemId()) {		
 		case CONTEXTMENU_SENDSMS:
-			String currency = (String)(this.mainList.getAdapter().getItem(menuInfo.position));
+			
 			String content = MyUtility.createSMSContent(
 					this, 
 					currency, 
@@ -147,12 +152,31 @@ public class ListRates extends Activity {
 					this.dataProvider.getInputDate());
 			MyUtility.broadcastSMSIntent(this, content);
 			return true;
+			
+		case CONTEXTMENU_REMOVE_CURRENCY:
+			MyPreference.removeCurrency(ListRates.this,currency);
+			MyUtility.forceActivityRestart(this);
+			return true;
+			
+		case CONTEXTMENU_ADDREMOVE_CURRENCIES:
+			intent = new Intent(ListRates.this,ChooseCurrenciesToShow.class);
+			this.startActivityForResult(intent, MyUtility.REQ_RESTART_DST_ACTIVITY);
+			return true;
+		case CONTEXTMENU_SET_CURRENCY_AS_MAIN:
+			MyPreference.setMainCurrency(ListRates.this, currency);
+			MyUtility.forceActivityRestart(ListRates.this);
+			return true;
 		}
+
 		return false;
 	}
 	private class MyOnCreateContextMenuListener implements OnCreateContextMenuListener {
 
 
+
+
+
+		
 
 		@Override
 		public void onCreateContextMenu(ContextMenu menu, View v,
@@ -160,9 +184,15 @@ public class ListRates extends Activity {
 			AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
 			String currency = (String)(info.targetView.getTag());
 			menu.setHeaderTitle(v.getContext().getString(R.string.ListRate_ContextMenuTitle) + " " + currency);
+			int position = 0;
 			menu.add(
 					0, CONTEXTMENU_SENDSMS, 
-					0 , v.getContext().getString(R.string.ShareSMS));
+					position++, R.string.ShareSMS);
+			
+			menu.add(0, CONTEXTMENU_SET_CURRENCY_AS_MAIN,position++,R.string.ContextMenu_SetCurrencyAsMain);
+			menu.add(0, CONTEXTMENU_REMOVE_CURRENCY,position++,R.string.ContextMenu_RemoveCurrency);
+			menu.add(0, CONTEXTMENU_ADDREMOVE_CURRENCIES,position++,R.string.ContextMenu_AddRemoveCurrencies);
+
 		}
 
 	}
