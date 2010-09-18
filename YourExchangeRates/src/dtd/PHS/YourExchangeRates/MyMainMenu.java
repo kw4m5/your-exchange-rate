@@ -37,6 +37,10 @@ public class MyMainMenu {
 			intent = new Intent(this.context,ChoosePrecision.class);
 			((Activity)context).startActivityForResult(intent,MyUtility.REQ_RESTART_DST_ACTIVITY);
 			return true;
+		case R.id.menu_add_remove_currencies:
+			intent = new Intent(this.context,ChooseCurrenciesToShow.class);
+			((Activity)context).startActivityForResult(intent,MyUtility.REQ_RESTART_DST_ACTIVITY);
+			return true;
 		default: return false;
 		}
 	}

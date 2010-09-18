@@ -1,4 +1,6 @@
 package dtd.PHS.YourExchangeRates;
+import java.util.ArrayList;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -50,7 +52,7 @@ abstract public class MyPreference {
 				context.getString(R.string.PREF_LastOnlineDate),
 				aDate);
 	}
-	
+
 	/**
 	 * Return the last online date with the format dd/MM/yyyy - if no date is stored, return null
 	 * @param context
@@ -73,7 +75,7 @@ abstract public class MyPreference {
 		return Integer.parseInt(strPrec);
 
 	}
-	
+
 	public static void setDecimalPrecision(Context context,int prec) {
 		setPreference(context, context.getString(R.string.PREF_DecimalPrecesion), Integer.toString(prec));
 	}
@@ -97,4 +99,88 @@ abstract public class MyPreference {
 		if ( daysStr == null ) daysStr = context.getString(R.string.Default_NumDaysToUpdate);
 		return Integer.parseInt(daysStr);
 	}
+
+	/**
+	 * Return the currencies to show, default (without saved data): all currencies available
+	 * @return
+	 */
+	public static String[] getCurrenciesToShow(Context context) {
+		//TODO: implement save preference "PREF_CurrenciesToShow" by a string, each currency is separated by ","
+		String currenciesToShow = getPreference(context, context.getString(R.string.PREF_CurrenciesToShow));
+
+		//Default: no preference about currencies to show is saved yet, return all currencies
+		if ( currenciesToShow == null ) {
+			return MyUtility.currenciesList;
+		} else {
+			String[] currencies = MyUtility.splitToWords( currenciesToShow, ",");
+			return currencies;
+		}
+	}
+	
+	/**
+	 * Return the currencies to show exception the main currencies, 
+	 * default (without saved data): all currencies available except the main ones
+	 * 
+	 * @return
+	 */
+	public static String[] getCurrenciesExcept(Context context,String mainCurrency) {
+		String[] currencies = MyPreference.getCurrenciesToShow(context);
+		ArrayList<String> currenciesExceptMain = new ArrayList<String>();
+		for(String currency : currencies) {
+			if ( currency.equals(mainCurrency)) continue;
+			currenciesExceptMain.add(currency);
+		}
+		
+		String[] ret = new String[currenciesExceptMain.size()];
+		currenciesExceptMain.toArray(ret);
+		
+		return ret;
+	}
+
+	/**
+	 * Save the preference PREF_CurrenciesToShow
+	 * The main currency is always shown
+	 * @param context
+	 * @param currencies
+	 */
+	public static void setCurrenciesToShow(Context context,String[] currencies) {
+		
+		boolean mainCurrencyInList = false;
+		String mainCurrency = MyPreference.getMainCurrency(context);
+		for(String currency: currencies) {
+			if ( currency.trim().equals(mainCurrency)) mainCurrencyInList = true;			
+		}
+		
+		String[] newCurrencies;
+		if ( !mainCurrencyInList ) {
+			newCurrencies = MyUtility.getCurrenciesListPlus(mainCurrency,currencies);
+		} else newCurrencies = currencies;
+		
+		String data="";
+		for(String currency : newCurrencies)  {
+			data = data + currency + ",";
+		}
+		//remove the last commas
+		data = data.substring(0,data.length()-1);
+		
+		setPreference(context, context.getString(R.string.PREF_CurrenciesToShow), data);
+	}
+
+	/**
+	 * Remove a currency from the preference "PREF_CurrenciesToShow"
+	 * @param currency
+	 */
+	public static void removeCurrency(Context context,String currencyToRemove) {
+		String[] currenciesDisplaying = getCurrenciesToShow(context);
+		ArrayList<String> currenciesToShow = new ArrayList<String>();
+		for(String currency : currenciesDisplaying) {
+			if ( currency.equals(currencyToRemove)) continue;
+			currenciesToShow.add(currency);
+		}
+		String[] result = new String[ currenciesToShow.size()];
+		currenciesToShow.toArray(result);
+		MyPreference.setCurrenciesToShow(context, result);
+	}
+
+
 }

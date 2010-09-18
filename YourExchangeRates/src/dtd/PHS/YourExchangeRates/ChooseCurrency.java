@@ -16,7 +16,7 @@ public class ChooseCurrency extends ListActivity {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.choose_main_currency);
         setListAdapter(new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_single_choice, MyUtility.getCurrencies()));
+                android.R.layout.simple_list_item_single_choice,MyPreference.getCurrenciesToShow(this)));
 
         final ListView listView = getListView();
 
