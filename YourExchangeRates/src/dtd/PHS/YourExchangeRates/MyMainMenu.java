@@ -30,7 +30,7 @@ public class MyMainMenu {
 			MyUtility.switchToHomeScreen((Activity)context);
 			return true;
 		case R.id.menu_set_main_currency:
-			intent = new Intent(this.context,ChooseCurrency.class);
+			intent = new Intent(this.context,ChooseMainCurrency.class);
 			((Activity)context).startActivityForResult(intent,MyUtility.REQ_RESTART_DST_ACTIVITY);
 			return true;
 		case R.id.menu_set_precision:

@@ -1,6 +1,7 @@
 package dtd.PHS.YourExchangeRates;
 
 import android.app.ListActivity;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,6 +16,7 @@ public class ChoosePrecision extends ListActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.choose_precision);
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
 		String[] decPrecisions = this.getResources().getStringArray(R.array.DecimalPrecisions);
 		setListAdapter(new ArrayAdapter<String>(

@@ -3,6 +3,7 @@ package dtd.PHS.YourExchangeRates;
 import java.util.HashMap;
 
 import android.app.Activity;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
@@ -21,6 +22,7 @@ public class PreviewSMS extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.preview_sms);
+	    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 	    
 	    this.mapTV2CB = new HashMap<TextView, CheckBox>();
 

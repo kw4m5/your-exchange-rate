@@ -1,6 +1,7 @@
 package dtd.PHS.YourExchangeRates;
 
 import android.app.ListActivity;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.SparseBooleanArray;
 import android.view.View;
@@ -15,6 +16,7 @@ public class ChooseCurrenciesToShow extends ListActivity {
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.choose_currencies_to_show);
+	    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setListAdapter(new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_multiple_choice,MyUtility.currenciesList));
         listView = getListView();

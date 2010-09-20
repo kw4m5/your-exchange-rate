@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="dtd.PHS.YourExchangeRates" android:versionCode="2" android:versionName="1.1">
+	package="dtd.PHS.YourExchangeRates" android:versionCode="3" android:versionName="1.11">
 	<application android:icon="@drawable/icon" android:label="@string/app_name" android:debuggable="true">
 		<activity android:name=".ListRates" android:label="@string/app_name">
 		</activity>
@@ -15,7 +15,7 @@
 		<activity android:name="CalculateRate"></activity>
 		<activity android:name="SendSMS"></activity>
 		<activity android:name="About"></activity>
-	<activity android:name="ChooseCurrency" android:screenOrientation="portrait"></activity>
+	<activity android:name="ChooseMainCurrency" android:screenOrientation="portrait"></activity>
 <activity android:name="ChoosePrecision"></activity>
 <activity android:name="PreviewSMS"></activity>
 <activity android:name="ChooseCurrenciesToShow"></activity>

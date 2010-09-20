@@ -1,6 +1,7 @@
 package dtd.PHS.YourExchangeRates;
 
 import android.app.ListActivity;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -8,13 +9,14 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class ChooseCurrency extends ListActivity {
+public class ChooseMainCurrency extends ListActivity {
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.choose_main_currency);
+	    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setListAdapter(new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_single_choice,MyPreference.getCurrenciesToShow(this)));
 
@@ -33,8 +35,8 @@ public class ChooseCurrency extends ListActivity {
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
 			String currency = (String)parent.getItemAtPosition(position);
-			MyPreference.setMainCurrency(ChooseCurrency.this, currency);
-			ChooseCurrency.this.finish();
+			MyPreference.setMainCurrency(ChooseMainCurrency.this, currency);
+			ChooseMainCurrency.this.finish();
 		}
 
 	
