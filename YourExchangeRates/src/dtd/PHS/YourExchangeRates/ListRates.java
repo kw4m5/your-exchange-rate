@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -17,8 +18,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import dtd.PHS.YourExchangeRates.SimpleGestureFilter.SimpleGestureListener;
 
-public class ListRates extends Activity {
+public class ListRates extends Activity implements SimpleGestureListener {
 
 	private static final int CONTEXTMENU_SENDSMS = 0;
 	private static final int CONTEXTMENU_REMOVE_CURRENCY = 1;
@@ -29,6 +31,7 @@ public class ListRates extends Activity {
 	MyMainMenu mainMenu;
 	MyPreference preference;
 	String mainCurrency;
+	private SimpleGestureFilter detector;	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -49,6 +52,8 @@ public class ListRates extends Activity {
 
 			this.mainList.setAdapter(adapter);
 			this.mainList.setOnCreateContextMenuListener(new MyOnCreateContextMenuListener());
+			
+			this.detector = new SimpleGestureFilter(this, this);
 		} catch (Exception e) {
 			//TODO: handle exception !
 			String eMess = e.getMessage();
@@ -56,6 +61,7 @@ public class ListRates extends Activity {
 		}
 
 	}
+	
 
 	private void initTextViews() {
 		TextView tvInputDate = (TextView)findViewById(R.id.tvLRInputDate);
@@ -170,13 +176,7 @@ public class ListRates extends Activity {
 
 		return false;
 	}
-	private class MyOnCreateContextMenuListener implements OnCreateContextMenuListener {
-
-
-
-
-
-		
+	private class MyOnCreateContextMenuListener implements OnCreateContextMenuListener {		
 
 		@Override
 		public void onCreateContextMenu(ContextMenu menu, View v,
@@ -195,5 +195,34 @@ public class ListRates extends Activity {
 
 		}
 
+	}
+
+	
+	@Override 
+	public boolean dispatchTouchEvent(MotionEvent me){ 
+		this.detector.onTouchEvent(me);
+		return super.dispatchTouchEvent(me); 
+	}
+	
+	@Override
+	public void onDoubleTap() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onSwipe(int direction) {
+		switch (direction) {
+		case SimpleGestureFilter.SWIPE_LEFT:
+			this.startActivity(new Intent(this,CalculateRate.class));
+			break;
+		case SimpleGestureFilter.SWIPE_RIGHT:
+			this.startActivity(new Intent(this,About.class));
+			break;
+		default:
+			break;
+		}
+		
 	}
 }
