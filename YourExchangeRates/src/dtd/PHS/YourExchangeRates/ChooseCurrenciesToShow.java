@@ -1,6 +1,7 @@
 package dtd.PHS.YourExchangeRates;
 
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.SparseBooleanArray;
@@ -54,7 +55,10 @@ public class ChooseCurrenciesToShow extends ListActivity {
 //		int num2 = num + 1;
 		
 		String[] currenciesToShow = MyUtility.splitToWords(chosenCurrencies,",");
-		MyPreference.setCurrenciesToShow(this, currenciesToShow);
+		
+		//Use this instead of setCurrenciesToShow(this,currenciesToShow)
+		Context context = getApplicationContext();
+		MyPreference.setCurrenciesToShow(context, currenciesToShow);
 		ChooseCurrenciesToShow.this.finish();
 		
 	}

@@ -3,6 +3,8 @@ package dtd.PHS.YourExchangeRates;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import dtd.PHS.YourExchangeRates.SimpleGestureFilter.SimpleGestureListener;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -13,6 +15,7 @@ import android.text.Selection;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -21,7 +24,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemSelectedListener;
 
-public class CalculateRate extends Activity {
+public class CalculateRate extends Activity implements SimpleGestureListener{
 
 	MyMainMenu mainMenu;
 	TextView tvTitle,tvMainCurrency,tvMajorCurrency01,tvMajorCurrency02,tvECBLink,tvInputDate;
@@ -33,6 +36,7 @@ public class CalculateRate extends Activity {
 	HashMap<EditText, String> mapET2Currency;
 	DataProvider dataProvider;
 	private  HashMap<Spinner, EditText> mapSpinner2ET;
+	private SimpleGestureFilter detector;
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -41,7 +45,7 @@ public class CalculateRate extends Activity {
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
 		this.initProperties();
-
+		this.detector = new SimpleGestureFilter(this, this);
 	}
 
 
@@ -322,6 +326,34 @@ public class CalculateRate extends Activity {
 				this.mapET2Currency.get(et));
  
 		et.setText(MyUtility.formatIntCurrency(Long.toString(amountExchange)));
+		
+	}
+
+	@Override 
+	public boolean dispatchTouchEvent(MotionEvent me){ 
+		this.detector.onTouchEvent(me);
+		return super.dispatchTouchEvent(me); 
+	}
+	
+	@Override
+	public void onDoubleTap() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onSwipe(int direction) {
+		switch (direction) {
+		case SimpleGestureFilter.SWIPE_LEFT:
+			this.startActivity(new Intent(this,About.class));
+			break;
+		case SimpleGestureFilter.SWIPE_RIGHT:
+			this.startActivity(new Intent(this,ListRates.class));
+			break;
+		default:
+			break;
+		}
 		
 	}
 }

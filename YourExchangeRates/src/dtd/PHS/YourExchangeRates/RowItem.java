@@ -79,5 +79,5 @@ public class RowItem extends TableRow{
 		tvToRate.setText(MyUtility.formatRate( Double.toString(rate), prec));
 		tvInRate.setText(MyUtility.formatRate( Double.toString(1.0/rate), prec));
 	}
-
+	
 }
