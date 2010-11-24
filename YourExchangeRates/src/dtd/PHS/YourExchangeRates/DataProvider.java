@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.content.Context;
@@ -127,41 +128,14 @@ public class DataProvider {
 
 	}
 	private void getRatesFromInternet(String URLString) throws Exception {
-		URL internetURL = new URL(URLString);
-		BufferedReader in = new BufferedReader(new InputStreamReader(internetURL.openStream()));
-		String inputLine="ABC";
-		while (inputLine != null) {
-			inputLine = in.readLine();
-			if (inputLine.contains(("Cube"))) {
-				break;
-			}
+		
+		ExchangeRatesCollector collector = new ExchangeRatesXMLParser(URLString);
+		this.inputDate = collector.getDate();
+		ArrayList<String> currencies = collector.getCurrencies();
+		ArrayList<Double> rates = collector.getRates();		
+		for(int i = 0 ; i < currencies.size() ; i++) {
+			mapStr2ExchangeRate.put(currencies.get(i), new MyExchangeRateToStandardCurrency(rates.get(i)));
 		}
-
-		char markChar = '\'';
-		//Inputdate line
-		inputLine = in.readLine();
-		this.inputDate = MyUtility.changeDateFormat(inputLine.substring(inputLine.indexOf(markChar)+1, inputLine.lastIndexOf(markChar)));
-
-		//		String nameCurrencies = "";
-		while (inputLine != null) {
-			inputLine = in.readLine();
-
-			//No more info needed
-			if (inputLine.contains("</Cube")) break;
-
-			int bpos = inputLine.indexOf(markChar);
-			int epos = inputLine.indexOf(markChar,bpos+1);
-			String currency = inputLine.substring(bpos+1, epos);
-
-			//			nameCurrencies +=currency+",";
-			bpos = inputLine.indexOf(markChar, epos+1);
-			epos = inputLine.indexOf(markChar,bpos+1);
-			String rateStr = inputLine.substring(bpos+1, epos);
-
-			mapStr2ExchangeRate.put(currency, new MyExchangeRateToStandardCurrency(Double.parseDouble(rateStr)));
-		}
-
-		in.close();
 
 	}
 

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<string name="app_name">Tes taux de change !</string>
+	<string name="ExchangeRateBase">Taux de change basés sur</string>
+	<string name="LRTo">Par</string>
+	<string name="LRIn">En</string>
+	<string name="NoInternetConnection">Les taux sont non à jour. Veuillez vous connecter à internet pour mettre à jour !</string>
+	<string name="BeginRegcoStringOfDate">utilise les valeurs à partir de</string>
+	<string name="ChooseYourMainCurrency">Veuillez choisir votre devise principale:</string>
+	<string name="HintChangeMainCurrency">Vous pouvez choisir plus tard votre devise principale dans:\nMenu
+		&gt; Devise principale</string>
+	<string name="ListRate_ContextMenuTitle">Taux de change </string>
+	<string name="ShareSMS">Partager par SMS</string>
+	<string name="SMS_Title">Taux de change basés sur ceux de la Banque Centrale Européenne, date</string>
+	<string name="MenuAboutUs">A propos</string>
+	<string name="MenuTitle_SetDecimalPrecision">Précision</string>
+	<string name="MenuTitle_SetMainCurrency">Devise principale</string>
+
+<string name="ChooseDecimalPrecision">Veuillez choisir la précision décimale:</string>
+<string name="ChooseMainCurrency">Choisissez votre device principale:</string>
+<string name="ClearButtonText">Vider</string>
+
+<string name="Calculate_SMSTitle">Basé sur les taux de la Banque Centrale Européenne, date </string>
+<string name="ChooseCurrenciesToSend">Choisir la devise à envoyer: </string>
+<string name="MenuTitle_AddRemoveCurrencies">Ajouter/Supprimer des devises</string>
+<string name="MenuTitle_Exit">Sortir</string>
+<string name="ChooseCurrencies_Title">Quelles devises voulez-vous afficher ?</string>
+<string name="ChooseCurrencies_SaveTitle">Sauvegarder</string>
+<string name="ContextMenu_RemoveCurrency">Supprimer cette devise</string>
+<string name="ContextMenu_AddRemoveCurrencies">Ajouter/Supprimer des devises</string>
+<string name="ContextMenu_SetCurrencyAsMain">Mettre cette devise comme principale</string>
+<string name="SMS_BottomLine">Envoy\é à partir de l\'application Android: Tes taux de change </string>
+</resources>
