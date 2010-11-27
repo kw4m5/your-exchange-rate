@@ -7,7 +7,7 @@ import android.view.GestureDetector.SimpleOnGestureListener;
 
 public class MyGestureDetector extends SimpleOnGestureListener {
 	private static final int SWIPE_MIN_DISTANCE = 80;
-	private static final int SWIPE_MAX_OFF_PATH = 250;
+	private static final int SWIPE_MAX_OFF_PATH = 150;
 	private static final int SWIPE_THRESHOLD_VELOCITY = 100;
 
 	Activity parentAct;

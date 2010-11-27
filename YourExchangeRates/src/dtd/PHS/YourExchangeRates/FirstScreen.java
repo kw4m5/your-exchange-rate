@@ -26,7 +26,7 @@ public class FirstScreen extends Activity {
 	    	
 	    	lvChoose = (ListView)findViewById(R.id.lvChooseMainCurrency);
 	    	lvChoose.setItemsCanFocus(false);
-	    	lvChoose.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_list_item_single_choice,MyPreference.getCurrenciesToShow(this)));
+	    	lvChoose.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_list_item_single_choice,MyPreference.getFullCurrenciesList(this)));
 	    	lvChoose.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 	    	lvChoose.setOnItemClickListener(new MyOnItemClickListener());
 	    } else {

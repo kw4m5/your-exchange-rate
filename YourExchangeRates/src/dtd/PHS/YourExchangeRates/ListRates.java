@@ -206,7 +206,6 @@ public class ListRates extends Activity implements SimpleGestureListener {
 	
 	@Override
 	public void onDoubleTap() {
-		// TODO Auto-generated method stub
 		
 	}
 

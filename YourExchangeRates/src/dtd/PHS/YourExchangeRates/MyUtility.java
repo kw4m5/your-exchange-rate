@@ -1,5 +1,10 @@
 package dtd.PHS.YourExchangeRates;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,6 +19,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.widget.Toast;
 
 /**
  * This class provides functions/data ... at global level
@@ -26,7 +32,7 @@ public class MyUtility {
 	public static final int DATE_FORMAT_SHORTER_FIRST = 1;
 	public static final int REQ_RESTART_DST_ACTIVITY = 0;
 	public static final int REQ_FINISH_SRC_ACTIVITY = 1;
-	public static String[] currenciesList = {
+	public static String[] fullCurrenciesList = {
 		"USD","EUR","JPY",
 		"AUD","BGN","BRL",
 		"CAD","CHF","CNY",
@@ -38,6 +44,13 @@ public class MyUtility {
 		"NOK","PHP","PLN",
 		"RON","RUB","SEK",
 		"SGD","THB","TRY","ZAR"};
+	public static String[] startupCurrenciesList = {
+		"USD","EUR","JPY",
+		"AUD","CAD","CHF",
+		"CNY","GBP","HKD",
+		"IDR","KRW","MXN",
+		"NZD","RON","RUB",
+		"SGD","ZAR"};
 	public static HashMap<String, String> mapAbb2FullCurrencyName;
 	public static HashMap<String, String> mapFull2AbbCurrencyName;
 	public static HashMap<String, String> mapNameMonth2NumMonth;
@@ -82,8 +95,8 @@ public class MyUtility {
 		}
 		
 		mapAbbName2PositionInCurrenciesList = new HashMap<String, Integer>();
-		for(int i = 0; i < MyUtility.currenciesList.length ; i++) {
-			mapAbbName2PositionInCurrenciesList.put(currenciesList[i], new Integer(i));
+		for(int i = 0; i < MyUtility.fullCurrenciesList.length ; i++) {
+			mapAbbName2PositionInCurrenciesList.put(fullCurrenciesList[i], new Integer(i));
 		}
 	}
 
@@ -205,9 +218,9 @@ public class MyUtility {
 	 * @return
 	 */
 	public static String[] getCurrenciesExcept(String specialCurrency) {
-		String[] list = new String[currenciesList.length-1];
+		String[] list = new String[fullCurrenciesList.length-1];
 		int i = 0;	
-		for(String currency : currenciesList) {
+		for(String currency : fullCurrenciesList) {
 			if ( currency.equals(specialCurrency)) continue;
 			list[i++] = currency;
 		}
@@ -414,7 +427,7 @@ public class MyUtility {
 	 */
 
 	public static boolean[] creatCurrenciesMask(String[] currencies) {
-		boolean[] mask = new boolean[MyUtility.currenciesList.length];
+		boolean[] mask = new boolean[MyUtility.fullCurrenciesList.length];
 		for(int i = 0 ; i < mask.length ; i++) mask[i] = false;
 		for(String currency : currencies) {
 			mask[MyUtility.mapAbbName2PositionInCurrenciesList.get(currency)] = true;
@@ -441,10 +454,10 @@ public class MyUtility {
 			String[] currencies) {
 		boolean[] mask = creatCurrenciesMask(currencies);
 		ArrayList<String> sortedCurrencies = new ArrayList<String>();
-		for(int i = 0 ; i < MyUtility.currenciesList.length ; i++) 
+		for(int i = 0 ; i < MyUtility.fullCurrenciesList.length ; i++) 
 		if ( mask[i] == true )
 		{
-			sortedCurrencies.add(MyUtility.currenciesList[i]);
+			sortedCurrencies.add(MyUtility.fullCurrenciesList[i]);
 		}
 		return convertArrayList2Array(sortedCurrencies);
 	}
@@ -455,6 +468,43 @@ public class MyUtility {
 			array.add(element);
 		}
 		return array;
+	}
+
+	/**
+	 * Check whether an array contains a value - sequence search
+	 * @param <T>
+	 * @param array
+	 * @param value
+	 */
+	public static <T> boolean contains(T[] array,T value) {
+		int len = array.length;
+		for(int i = 0; i < len ; i++) {
+			if ( array[i] == value ) return true;
+		}
+		return false;
+	}
+
+	public static String getDateFromRawFile(Context context) throws IOException {
+		InputStream staticIS = context.getResources().openRawResource(R.raw.rates);
+		InputStreamReader input = new InputStreamReader(staticIS);
+		BufferedReader buffreader = new BufferedReader(input);
+		String inputDate = buffreader.readLine().trim();		
+		staticIS.close();
+		return inputDate;
+	}
+
+	public static String getDateFromStorage(Context context) throws IOException {
+		InputStream staticIS = context.openFileInput(context.getString(R.string.StorageFileName));
+		InputStreamReader input = new InputStreamReader(staticIS);
+		BufferedReader buffreader = new BufferedReader(input);
+		String inputDate = buffreader.readLine().trim();		
+		staticIS.close();
+		return inputDate;
+	}
+	
+	public static void showToast(Context context,String mess) {
+		Toast toast = Toast.makeText(context, mess, Toast.LENGTH_LONG);
+		toast.show();
 	}
 	
 	

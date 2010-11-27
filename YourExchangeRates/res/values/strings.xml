@@ -74,4 +74,8 @@
 <string name="ContextMenu_AddRemoveCurrencies">Add/Remove currencies</string>
 <string name="ContextMenu_SetCurrencyAsMain">Set this currency as main</string>
 <string name="SMS_BottomLine">Sent from Android App: \&quot;Your Exchange Rates\&quot;</string>
+<string name="MenuTitle_ForceUpdate">Update rates</string>
+<string name="CannotUpdate_NoInternetConnection">Cannot update: no internet connection !</string>
+<string name="UpdateComplete_PleaseRefresh">Updating completed ! Please go to \&quot;Menu&gt;Refresh\&quot; to get the latest rates !</string>
+<string name="MenuTitle_Refresh">Refresh</string>
 </resources>
