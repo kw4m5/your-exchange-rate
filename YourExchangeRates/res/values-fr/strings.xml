@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<string name="app_name">Tes taux de change !</string>
+	<string name="app_name">Your exchange rates !</string>
 	<string name="ExchangeRateBase">Taux de change basés sur</string>
 	<string name="LRTo">Par</string>
 	<string name="LRIn">En</string>
@@ -30,5 +30,7 @@
 <string name="ContextMenu_RemoveCurrency">Supprimer cette devise</string>
 <string name="ContextMenu_AddRemoveCurrencies">Ajouter/Supprimer des devises</string>
 <string name="ContextMenu_SetCurrencyAsMain">Mettre cette devise comme principale</string>
-<string name="SMS_BottomLine">Envoy\é à partir de l\'application Android: Tes taux de change </string>
+<string name="SMS_BottomLine">Envoy\é à partir de l\'application Android: Your exchange rates </string>
+<string name="MenuTitle_Refresh">Refresh</string>
+<string name="UpdateComplete_PleaseRefresh">Mise \à jour termin\ée! S\'il vous pla\ît allez \à \"Menu>Refresh\" pour obtenir les derniers taux!</string>
 </resources>

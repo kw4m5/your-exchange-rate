@@ -92,6 +92,7 @@ abstract public class MyPreference {
 	public static void setMainCurrency(
 			Context context,String mainCurrency) {
 		setPreference(context, context.getString(R.string.PREF_MainCurrency), mainCurrency);
+		setCurrenciesToShow(context, getCurrenciesToShow(context));
 	}
 
 	public static long getNumDaysToUpdate(Context context) {
@@ -110,7 +111,7 @@ abstract public class MyPreference {
 
 		//Default: no preference about currencies to show is saved yet, return all currencies
 		if ( currenciesToShow == null ) {
-			return MyUtility.currenciesList;
+			return MyUtility.startupCurrenciesList;
 		} else {
 			String[] currencies = MyUtility.splitToWords( currenciesToShow, ",");
 			return currencies;
@@ -180,6 +181,10 @@ abstract public class MyPreference {
 		String[] result = new String[ currenciesToShow.size()];
 		currenciesToShow.toArray(result);
 		MyPreference.setCurrenciesToShow(context, result);
+	}
+
+	public static String[] getFullCurrenciesList(FirstScreen firstScreen) {
+		return MyUtility.fullCurrenciesList;
 	}
 
 

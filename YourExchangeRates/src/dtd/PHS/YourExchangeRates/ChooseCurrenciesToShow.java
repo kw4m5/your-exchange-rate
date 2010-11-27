@@ -19,7 +19,7 @@ public class ChooseCurrenciesToShow extends ListActivity {
 	    setContentView(R.layout.choose_currencies_to_show);
 	    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setListAdapter(new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_multiple_choice,MyUtility.currenciesList));
+                android.R.layout.simple_list_item_multiple_choice,MyUtility.fullCurrenciesList));
         listView = getListView();
         //TODO: set checked states = true for all displaying currencies 
         
@@ -45,9 +45,9 @@ public class ChooseCurrenciesToShow extends ListActivity {
 	public void onSaveButtonClickHandler(View view) {
 		SparseBooleanArray checkedMask = listView.getCheckedItemPositions();
 		String chosenCurrencies = "";
-		for(int i =0; i < MyUtility.currenciesList.length ; i++) {
+		for(int i =0; i < MyUtility.fullCurrenciesList.length ; i++) {
 			if (checkedMask.get(i) == true) {
-				chosenCurrencies += MyUtility.currenciesList[i] + ",";
+				chosenCurrencies += MyUtility.fullCurrenciesList[i] + ",";
 			}
 		}
 //		//DONE: DEBUG code - to remove !

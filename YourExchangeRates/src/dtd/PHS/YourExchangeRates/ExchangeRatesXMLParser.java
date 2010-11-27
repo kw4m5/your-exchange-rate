@@ -14,7 +14,6 @@ public class ExchangeRatesXMLParser extends ExchangeRatesCollector {
 	public ExchangeRatesXMLParser(String URLStr) {
 		super(URLStr);
 		try {
-
 			/** Handling XML */
 			SAXParserFactory spf = SAXParserFactory.newInstance();
 			SAXParser sp = spf.newSAXParser();

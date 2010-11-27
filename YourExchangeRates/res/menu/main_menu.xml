@@ -2,6 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
 	<item 
+		android:id="@+id/menu_refresh"
+		android:title="@string/MenuTitle_Refresh"/>	
+	<item 
 		android:id="@+id/menu_add_remove_currencies"
 		android:title="@string/MenuTitle_AddRemoveCurrencies"/>	
 	<item

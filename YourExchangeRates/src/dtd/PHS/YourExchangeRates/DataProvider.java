@@ -4,12 +4,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.content.Context;
+import android.content.Intent;
 
 public class DataProvider {
 	protected String mainCurrency;
@@ -34,45 +32,37 @@ public class DataProvider {
 		mapStr2ExchangeRate.put(context.getString(R.string.ChoosenAsStandardCurrency),new MyExchangeRateToStandardCurrency(1.0));
 
 		if ( MyUtility.connectedToInternet(context) ) {
-			if (MyUtility.isDataUpdated(context,MyPreference.getLastOnlineDate(context))) {
-				getRatesFromStorage();
+			String lastOnlineDate = MyPreference.getLastOnlineDate(context);
+			if ( lastOnlineDate == null) {
+				MyPreference.setLastOnlineDate(context, MyUtility.getDateFromRawFile(context));
+				this.getRatesFromRaw();
 			} else {
-				getRatesFromInternet(context.getString(R.string.DataURL));
-				updateRates();	
-				MyPreference.setLastOnlineDate(context,MyUtility.getDateToday());
+				if (MyUtility.isDataUpdated(context, lastOnlineDate)) {
+					this.getRatesFromStorage();
+				} else {
+					if ( MyUtility.existPastRecord(context)) {
+						DataProvider.this.getRatesFromStorage();
+					} else DataProvider.this.getRatesFromRaw();
+					context.getApplicationContext().startService(new Intent(context.getApplicationContext(),GetRatesFromInternetService.class));
+				}
 			}
+			//			if (MyUtility.isDataUpdated(context,MyPreference.getLastOnlineDate(context))) {
+			//				getRatesFromStorage();
+			//			} else {
+			//				getRatesFromInternet(context.getString(R.string.DataURL));
+			//				updateRates();	
+			//				MyPreference.setLastOnlineDate(context,MyUtility.getDateToday());
+			//			}
 		} else {
 			if (MyUtility.existPastRecord(context)) {
 				getRatesFromStorage();
 			} else {
 				getRatesFromRaw();
-
 			}
 		}
 	}
 
-	/**
-	 * Store the exchange rate table (of USD-Chosen as standard) locally to access next time
-	 * @param mainCurrency
-	 */
-	private void updateRates() {
-		try {
-			OutputStreamWriter out = new OutputStreamWriter(
-					context.openFileOutput(context.getString(R.string.StorageFileName),Context.MODE_PRIVATE));
-			out.write(this.getInputDate()+"\n");
-			for(String currency: MyUtility.getCurrenciesExcept(context.getString(R.string.ChoosenAsStandardCurrency))) {
-				out.write(currency+"\t");
-				MyExchangeRateToStandardCurrency rate = mapStr2ExchangeRate.get(currency);
-				out.write(Double.toString(rate.getRateTo()) + "\n");				
-			}
-			out.flush();
-			out.close();			
 
-		} catch (IOException e) {
-
-		}
-
-	}
 
 	public String getInputDate() {
 		return this.inputDate;
@@ -127,110 +117,7 @@ public class DataProvider {
 		//		if ( names.length()== 0 ) { names="null"; } //tool code
 
 	}
-	private void getRatesFromInternet(String URLString) throws Exception {
-		
-		ExchangeRatesCollector collector = new ExchangeRatesXMLParser(URLString);
-		this.inputDate = collector.getDate();
-		ArrayList<String> currencies = collector.getCurrencies();
-		ArrayList<Double> rates = collector.getRates();		
-		for(int i = 0 ; i < currencies.size() ; i++) {
-			mapStr2ExchangeRate.put(currencies.get(i), new MyExchangeRateToStandardCurrency(rates.get(i)));
-		}
 
-	}
-
-	//		//Get the connection, throws MalformURLException
-	//		URL internetURL = new URL(URLString);
-	//		BufferedReader in = new BufferedReader(new InputStreamReader(internetURL.openStream()));
-	//		String inputLine="ABC";
-	//		String previousLine;
-	//
-	//		//Skip the content until the beginning of rates table
-	//		String regBeginTableRates = context.getString(R.string.BeginRecogTableRates);
-	//		while ( ! (inputLine.trim()).equals(regBeginTableRates) ) {
-	//			inputLine = in.readLine();
-	//		}
-	//
-	//		//Begin reading the rates
-	//		while (inputLine != null) {
-	//			previousLine = inputLine;
-	//			inputLine = in.readLine();
-	//			if ( this.containCurrencyInfo(inputLine) ) {
-	//				String nextLine = in.readLine();
-	//				this.extractCurrencyInfo(previousLine,inputLine,nextLine);
-	//
-	//				//skip the next 2 lines for performance reason
-	//				nextLine = in.readLine();
-	//				nextLine = in.readLine();
-	//				inputLine = in.readLine();
-	//
-	//			} else 
-	//				if ( this.containInputDate(previousLine)) {
-	//					this.extractInputDate(previousLine);
-	//					in.close();
-	//					break; //We don't need anymore information
-	//				}
-	//
-	//
-	//
-	//		}
-	//		in.close();
-
-	//	}
-	//
-	//	private void extractCurrencyInfo(String previousLine, String currentLine,
-	//			String nextLine) {
-	//		String HTMLSpace = context.getString(R.string.HTMLSpace);
-	//
-	//		//previousLine: contains the currency name
-	//		int beginPos = previousLine.indexOf(HTMLSpace) + HTMLSpace.length();
-	//		int endPos = previousLine.lastIndexOf(HTMLSpace);
-	//		String currencyFullName = previousLine.substring(beginPos, endPos);
-	//
-	//		//currentLine: contains the "To" exchange rate
-	//		String recogExchangeRate = context.getString(R.string.RecogCurrencyExchange);
-	//		beginPos = currentLine.indexOf(recogExchangeRate)+recogExchangeRate.length();
-	//		endPos = currentLine.lastIndexOf("</a>");
-	//		String toRateStr = currentLine.substring(beginPos,endPos);
-	//		String abbCurrencyName = MyUtility.mapFull2AbbCurrencyName.get(currencyFullName);
-	//		this.mapStr2ExchangeRate.put(
-	//				abbCurrencyName, 
-	//				new MyExchangeRate(Double.parseDouble(toRateStr))
-	//		);
-	//
-	//	}
-	//
-	//
-	//	private boolean containCurrencyInfo(String inputLine) {
-	//		String regCurr = context.getString(R.string.RecogCurrencyExchange);
-	//		return inputLine.contains(regCurr);		
-	//	}
-	//
-	//
-	//	private void extractInputDate(String inputLine) {
-	//		String regStringBegin = context.getString(R.string.BeginRegcoStringOfDate);
-	//		String regStringEnd = context.getString(R.string.EndRegcoStringOfDate);
-	//		String rawStringDate = inputLine.substring(
-	//				inputLine.indexOf(",", inputLine.indexOf(regStringBegin))+1,
-	//				inputLine.indexOf(regStringEnd,inputLine.indexOf(regStringBegin))).trim();
-	//
-	//		String[] words = MyUtility.splitToWords(rawStringDate);
-	//
-	//		String month = MyUtility.mapNameMonth2NumMonth.get(words[0].toUpperCase());
-	//
-	//		String day = words[1];
-	//		if (day.length() == 1 ) day = "0" + day;
-	//
-	//		String year = words[2];
-	//
-	//		this.inputDate=day+"/"+month+"/"+year;
-	//	}
-	//
-	//
-	//	private boolean containInputDate(String aline) {
-	//		return aline.contains(context.getString(R.string.BeginRegcoStringOfDate));
-	//	}
-	//
 
 	private void getRatesFromStorage() {
 		try {
@@ -261,6 +148,7 @@ public class DataProvider {
 		double rate = getExchangeRate(cFrom, cTo);
 		return Math.round(amount * rate);
 	}
+
 
 
 
